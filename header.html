@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Implement Sticky Header and Footer with CSS</title>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+
+        function update(){
+        $.ajax({
+          url: "root.php",
+          type: "post",
+          data: {
+            cart_no: 1,
+          },
+          success: function (response) {
+            let [num, ...name] = response.split(" ");
+            $("span").text(num);
+            $(".tog").hide();
+            if (name[0] == "none") {
+              $(".uid").hide();
+              $(".lid").show();
+            } else {
+              $(".uid").text(name.join(" "));
+              $(".lid").hide();
+            }
+          },
+        });
+        }
+      $(document).ready(function () {
+
+        update();
+
+        $(".tog").click(function(){
+
+        $.ajax({
+          url: "root.php",
+          type: "post",
+          data: {
+            logout: 1,
+          },
+          success: function (response) {
+            alert(response);
+            update();
+          },
+        });
+        });
+
+
+        $(".uid").hover(
+          function () {
+            $(".tog").show();
+            $(".tog").hover(
+              function () {
+                $(".tog").show();
+              },
+              function () {
+                $(".tog").hide();
+              }
+            );
+          },
+          function () {
+            $(".tog").hide();
+          }
+        );
+      });
+    </script>
+    <style>
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+
+      .fixed-header,
+      .fixed-footer {
+        width: 100%;
+        position: fixed;
+        background: #333;
+        padding: 10px 0;
+        color: #fff;
+      }
+
+      .fixed-header {
+        top: 0;
+      }
+
+      .fixed-footer {
+        bottom: 0;
+      }
+
+      .container {
+        width: 80%;
+        margin: 0 auto;
+        /* Center the DIV horizontally */
+      }
+
+      nav {
+        text-align: center;
+      }
+
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        padding: 7px 25px;
+        display: inline-block;
+      }
+
+      .wrapper {
+        position: relative;
+      }
+
+      .wrapper span {
+        color: white;
+        height: 20px;
+        width: 20px;
+        padding: 1px;
+        position: absolute;
+        border-radius: 50px;
+        background-color: red;
+        top: -7px;
+        right: -23px;
+      }
+
+      /* user name show */
+      .uid {
+        border: 1px solid blue;
+        border-radius: 25px;
+        width: 100px;
+        height: 25px;
+        float: right;
+        cursor: pointer;
+      }
+      .lid {
+        float: right;
+      }
+
+      /* logout button show */
+
+      .tog {
+        position: absolute;
+        top: 50px;
+        right: 160px;
+        float: right;
+        display: flex;
+        background: #333;
+        box-shadow: 0 0 3px rgb(0, 0, 0, 0.25);
+        border-radius: 15px;
+        width: 140px;
+        height: 50px;
+        cursor: pointer;
+      }
+      .tog li {
+        list-style-type: none;
+      }
+      .tog:hover{
+        border: 2px solid red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="fixed-header">
+      <div class="container">
+        <nav>
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="product.php">Product</a>
+          <a href="contact.html">Contact us</a>
+          <a class="lid" href="login.html">Login</a>
+          <a href="cart.php">
+            <div class="wrapper">
+              <i class="fa" style="font-size: 20px">Cart</i>
+              <span></span>
+            </div>
+          </a>
+
+          <a class="uid"></a>
+          <div class="tog">
+            <ul>
+              <li>Logout</li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div class="fixed-footer">
+      <div class="container">Copyright &copy; 2020 Rahul Patil</div>
+    </div>
+  </body>
+</html>
