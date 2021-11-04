@@ -124,7 +124,7 @@
   <section class="products">
 
     <?php
-    include("config.php");
+    include("./config/config.php");
     $i=mysqli_query($con,"SELECT * FROM products");
     while($row = mysqli_fetch_assoc($i)){
       ?>
