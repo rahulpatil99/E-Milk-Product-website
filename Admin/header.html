@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Implement Sticky Header and Footer with CSS</title>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+
+      $(document).ready(function () {
+
+
+        $(".logout").click(function(){
+
+        $.ajax({
+          url: "route.php",
+          type: "post",
+          data: {
+            logout: 1,
+          },
+          success: function (response) {
+            window.location="index.php";
+          },
+        });
+        });
+
+
+        $(".uid").hover(
+          function () {
+            $(".tog").show();
+            $(".tog").hover(
+              function () {
+                $(".tog").show();
+              },
+              function () {
+                $(".tog").hide();
+              }
+            );
+          },
+          function () {
+            $(".tog").hide();
+          }
+        );
+      });
+    </script>
+    <style>
+      
+    </style>
+  </head>
+
+  <body>
+    <div class="fixed-header">
+      <div class="container">
+        <nav>
+          <a href="#">Home</a>
+          <b class="uid logout">Logout</b>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+   
+  </body>
+</html>
